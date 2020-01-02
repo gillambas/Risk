@@ -29,7 +29,7 @@ instance MonadGame Dist where
 
 
 normalise :: Ord a => Dist a -> Dist a
-normalise (D d) = D (Map.toList $ Map.fromListWith (+) d)
+normalise = D . Map.toList . (Map.fromListWith (+)) . unD
 
 probOfEvent :: Eq a => a -> Dist a -> Rational
 probOfEvent event = sum . map snd . filter ((== event) . fst) . unD
