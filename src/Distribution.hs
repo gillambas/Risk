@@ -2,10 +2,12 @@ module Distribution
   (exactProbability)
 where
 
-import Data.List
-import Data.Ord
-import Data.Ratio
-import RiskGame
+
+import           Data.List
+import qualified Data.Map as Map
+import           Data.Ord
+import           Data.Ratio
+import           RiskGame
 
 
 data Dist a = D { unD :: [(a,Rational)] } deriving Show
@@ -27,17 +29,7 @@ instance MonadGame Dist where
 
 
 normalise :: Ord a => Dist a -> Dist a
-normalise (D d) = D normalisedDist
-  where 
-    sortedD = sortBy (comparing fst) d
-    groups = groupBy (\x y -> (fst x)==(fst y)) sortedD
-
-    sumGroup :: [(a,Rational)] -> (a,Rational)
-    sumGroup = foldr (\(x,p) (_,q) -> (x,p+q)) (undefined,0 % 1)
-    --sumGroup [] = (undefined,undefined)
-    --sumGroup xs = (fst $ head xs, sum $ map snd xs)
-
-    normalisedDist = map sumGroup groups
+normalise (D d) = D (Map.toList $ Map.fromListWith (+) d)
 
 probOfEvent :: Eq a => a -> Dist a -> Rational
 probOfEvent event = sum . map snd . filter ((== event) . fst) . unD

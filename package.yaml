@@ -1,6 +1,6 @@
 name:                Risk
 version:             0.1.0.0
-github:              "githubuser/Risk"
+github:              "montetzouma/Risk"
 license:             BSD3
 author:              "George Illambas"
 maintainer:          "gillambas@gmail.com"
@@ -11,16 +11,19 @@ extra-source-files:
 - ChangeLog.md
 
 # Metadata used when publishing your package
-# synopsis:            Short description of your package
-# category:            Web
+synopsis:            A small program which calculates the probability of an attacker winning an invasion in 
+                     the Risk board game in two different ways (exact probability and Monte Carlo).
+                     The game is implemented only once using Monads and used for both methods.
+category:            Monads
 
 # To avoid duplicated efforts in documentation and dealing with the
 # complications of embedding Haddock markup inside cabal files, it is
 # common to point users to the README.md file.
-description:         Please see the README on GitHub at <https://github.com/githubuser/Risk#readme>
+description:         Please see the README on GitHub at <https://github.com/montetzouma/Risk#readme>
 
 dependencies:
 - base >= 4.7 && < 5
+- containers
 - random
 
 library:
@@ -30,17 +33,6 @@ executables:
   Risk-exe:
     main:                Main.hs
     source-dirs:         app
-    ghc-options:
-    - -threaded
-    - -rtsopts
-    - -with-rtsopts=-N
-    dependencies:
-    - Risk
-
-tests:
-  Risk-test:
-    main:                Spec.hs
-    source-dirs:         test
     ghc-options:
     - -threaded
     - -rtsopts
