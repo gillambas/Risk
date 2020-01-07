@@ -62,7 +62,7 @@ nDefenceRolls (Battlefield _ allDefenders) = if (allDefenders < 2) then
 data Outcome = AttackWins | DefenceWins | UnfinishedInvasion deriving (Eq,Ord,Show)
 
 invasionOutcome :: Battlefield -> Outcome
-invasionOutcome (Battlefield a 0) = AttackWins
-invasionOutcome (Battlefield 0 d) = DefenceWins
-invasionOutcome (Battlefield 1 d) = DefenceWins
+invasionOutcome (Battlefield _ 0) = AttackWins
+invasionOutcome (Battlefield 0 _) = DefenceWins
+invasionOutcome (Battlefield 1 _) = DefenceWins
 invasionOutcome _                 = UnfinishedInvasion
