@@ -20,7 +20,7 @@ main = do
 
   let field = Battlefield {attackers=nAttackers, defenders=nDefenders}
   
-  if (nAttackers > 3 || nDefenders > 2) then
+  if nAttackers > 3 || nDefenders > 2 then
     putStrLn "Too many armies to calculate exact probability!"
   else do
     let probExact = exactProbability field

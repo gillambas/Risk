@@ -9,6 +9,7 @@ where
 
 import Control.Monad
 import Data.List
+import Data.Ord
 
 
 type Army = Int
@@ -24,8 +25,8 @@ battle field = do
   attackDice <- replicateM (nAttackRolls field) roll
   defendDice <- replicateM (nDefenceRolls field) roll
   
-  let attackDiceSort = reverse $ sort attackDice
-  let defendDiceSort = reverse $ sort defendDice
+  let attackDiceSort = sortOn Down attackDice
+  let defendDiceSort = sortOn Down defendDice
   
   let matchups = zip attackDiceSort defendDiceSort
   
@@ -47,13 +48,13 @@ invade field = (battle field) >>= invade
 
 nAttackRolls :: Battlefield -> Int
 nAttackRolls (Battlefield allAttackers _) = let remainingAttackers = allAttackers - 1 in 
-                                            if (remainingAttackers > 3) then
+                                            if remainingAttackers > 3 then
                                               3
                                             else
                                               remainingAttackers  
 
 nDefenceRolls :: Battlefield -> Int
-nDefenceRolls (Battlefield _ allDefenders) = if (allDefenders < 2) then
+nDefenceRolls (Battlefield _ allDefenders) = if allDefenders < 2 then
                                                allDefenders
                                              else
                                                2
